@@ -3,6 +3,7 @@ import Button from "../UI/Button";
 import Card from "../UI/Card";
 import ErrorModal from "../UI/ErrorModal";
 import styles from "./FormUser.module.scss";
+import Wrapper from "../Helpers/Wrapper";
 
 const FormUser = (props) => {
   const [userName, setUserName] = useState("");
@@ -13,11 +14,14 @@ const FormUser = (props) => {
     e.preventDefault();
     console.log(`CreateNewUserHandler ${userName} ${userAge}`);
     if (userName.trim().length === 0 || userAge.trim().length === 0) {
-      setError({title: "Invalid input", message: "Please enter a valid name and age"});
+      setError({
+        title: "Invalid input",
+        message: "Please enter a valid name and age",
+      });
       return;
     }
-    if(+userAge < 0) {
-      setError({title: "Invalid input", message: "Please enter a valid age"});
+    if (+userAge < 0) {
+      setError({ title: "Invalid input", message: "Please enter a valid age" });
       return;
     }
     props.onCreateNewUser(userName, userAge);
@@ -32,11 +36,17 @@ const FormUser = (props) => {
   };
   const errorHandler = () => {
     setError(null);
-  }
+  };
 
   return (
-    <div>
-      {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler} />}
+    <React.Fragment>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={styles["form-user"]}>
         <form onSubmit={CreateNewUserHandler} className={styles["form-user"]}>
           <label>Name </label>
@@ -56,7 +66,7 @@ const FormUser = (props) => {
           <Button type="submit" children={"Submit"} />
         </form>
       </Card>
-    </div>
+    </React.Fragment>
   );
 };
 
