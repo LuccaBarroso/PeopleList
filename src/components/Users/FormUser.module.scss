@@ -1,18 +1,9 @@
 @import "../StylesUtils/Colors";
 
 .form-user {
-  padding-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: left;
-  justify-content: center;
-  width: 90%;
-  height: auto;
-  margin: 30px auto 10px auto;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  background-color: white;
   input, label{
     width: auto;
     padding: 0 10px;
