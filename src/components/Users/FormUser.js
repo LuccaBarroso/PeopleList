@@ -1,38 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import ErrorModal from "../UI/ErrorModal";
 import styles from "./FormUser.module.scss";
-import Wrapper from "../Helpers/Wrapper";
 
 const FormUser = (props) => {
-  const [userName, setUserName] = useState("");
-  const [userAge, setUserAge] = useState("");
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [error, setError] = useState();
 
   const CreateNewUserHandler = (e) => {
     e.preventDefault();
-    console.log(`CreateNewUserHandler ${userName} ${userAge}`);
-    if (userName.trim().length === 0 || userAge.trim().length === 0) {
+    const enteredName = (nameInputRef.current.value);
+    const enteredAge = (ageInputRef.current.value);
+    if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
         title: "Invalid input",
         message: "Please enter a valid name and age",
       });
       return;
     }
-    if (+userAge < 0) {
+    if (+enteredAge < 0) {
       setError({ title: "Invalid input", message: "Please enter a valid age" });
       return;
     }
-    props.onCreateNewUser(userName, userAge);
-    setUserName("");
-    setUserAge("");
-  };
-  const changeNameHandler = (e) => {
-    setUserName(e.target.value);
-  };
-  const changeAgeHandler = (e) => {
-    setUserAge(e.target.value);
+    props.onCreateNewUser(enteredName, enteredAge);
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
+
   };
   const errorHandler = () => {
     setError(null);
@@ -52,16 +48,14 @@ const FormUser = (props) => {
           <label>Name </label>
           <input
             type="text"
-            onChange={changeNameHandler}
-            value={userName ? userName : ""}
             placeholder="Your name"
+            ref={nameInputRef}
           />
           <label for="lname">Age </label>
           <input
             type="text"
-            onChange={changeAgeHandler}
-            value={userAge ? userAge : ""}
             placeholder="Your age"
+            ref={ageInputRef}
           />
           <Button type="submit" children={"Submit"} />
         </form>
