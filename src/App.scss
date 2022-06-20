@@ -1,0 +1,16 @@
+@import "./components/StylesUtils/Colors.scss";
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  background-color: $background;
+}
+* {
+  font-family: roboto;
+  margin: 0;
+  padding: 0;
+}
